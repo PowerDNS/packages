@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsdist
 PKG_VERSION:=1.6.0-rc1
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
@@ -17,7 +17,7 @@ PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 
 PKG_ASLR_PIE:=0
-PKG_BUILD_DEPENDS:=protobuf/host boost
+PKG_BUILD_DEPENDS:=boost
 
 PKG_CONFIG_DEPENDS:= \
   CONFIG_DNSDIST_GNUTLS \
@@ -82,7 +82,6 @@ define Package/dnsdist
 	  +libsodium \
 	  +lmdb \
 	  +lua \
-	  +protobuf \
 	  +re2 \
 	  +tinycdb
   URL:=https://dnsdist.org/
@@ -100,13 +99,15 @@ define Package/dnsdist/conffiles
 /etc/init.d/dnsdist
 endef
 
+# not everything groks --disable-nls
+DISABLE_NLS:=
+
 CONFIGURE_ARGS+= \
 	--enable-option-checking=fatal \
 	--enable-dnscrypt \
 	--enable-dnstap \
 	--with-libsodium \
 	--with-pic \
-	--with-protobuf \
 	--with-re2 \
 	--with-lua=lua \
 	--with-net-snmp \
