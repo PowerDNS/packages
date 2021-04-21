@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsdist
 PKG_VERSION:=1.6.0-rc1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
@@ -101,6 +101,7 @@ define Package/dnsdist/conffiles
 endef
 
 CONFIGURE_ARGS+= \
+	--enable-option-checking=fatal \
 	--enable-dnscrypt \
 	--enable-dnstap \
 	--with-libsodium \
