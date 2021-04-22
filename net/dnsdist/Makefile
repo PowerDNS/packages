@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsdist
 PKG_VERSION:=1.6.0-rc1
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
@@ -62,6 +62,12 @@ menu "Configuration"
 		help
 			"Enabled DNS over TLS Support for dnsdist"
 		default y
+
+	config DNSDIST_NET_SNMP
+		bool "Net-SNMP support"
+		help
+			"Enable Net-SNMP support for dnsdist"
+		default y
 endmenu
 endef
 
@@ -74,11 +80,11 @@ define Package/dnsdist
 	  +DNSDIST_DNS_OVER_HTTPS:libh2o-evloop \
 	  +DNSDIST_GNUTLS:libgnutls \
 	  +DNSDIST_OPENSSL:libopenssl \
+	  +DNSDIST_NET_SMP:libnetsnmp \
 	  +libatomic \
 	  +libcap \
 	  +libedit \
 	  +libfstrm \
-	  +libnetsnmp \
 	  +libsodium \
 	  +lmdb \
 	  +lua \
@@ -110,7 +116,7 @@ CONFIGURE_ARGS+= \
 	--with-pic \
 	--with-re2 \
 	--with-lua=lua \
-	--with-net-snmp \
+	$(if $(CONFIG_DNSDIST_NET_SNMP),--with,--without)-net-snmp \
 	$(if $(CONFIG_DNSDIST_GNUTLS),--with,--without)-gnutls \
 	$(if $(CONFIG_DNSDIST_OPENSSL),--with,--without)-libssl \
 	$(if $(CONFIG_DNSDIST_DNS_OVER_TLS),--enable-dns-over-tls,) \
