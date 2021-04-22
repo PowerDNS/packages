@@ -80,7 +80,7 @@ define Package/dnsdist
 	  +DNSDIST_DNS_OVER_HTTPS:libh2o-evloop \
 	  +DNSDIST_GNUTLS:libgnutls \
 	  +DNSDIST_OPENSSL:libopenssl \
-	  +DNSDIST_NET_SMP:libnetsnmp \
+	  +DNSDIST_NET_SNMP:libnetsnmp \
 	  +libatomic \
 	  +libcap \
 	  +libedit \
