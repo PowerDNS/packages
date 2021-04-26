@@ -1,0 +1,13 @@
+Index: dnsdist-1.6.0-rc1/configure
+===================================================================
+--- dnsdist-1.6.0-rc1.orig/configure
++++ dnsdist-1.6.0-rc1/configure
+@@ -5045,7 +5045,7 @@ _ACEOF
+ 
+ 
+ if test $ac_size -lt 8; then :
+-  as_fn_error $? "size of time_t is $ac_size, which is not large enough to fix the y2k38 bug" "$LINENO" 5
++  # as_fn_error $? "size of time_t is $ac_size, which is not large enough to fix the y2k38 bug" "$LINENO" 5
+ fi
+ 
+  typename=`echo time_t | sed "s/[^a-zA-Z0-9_]/_/g"`
