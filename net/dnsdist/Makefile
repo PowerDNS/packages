@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsdist
 PKG_VERSION:=1.6.0-rc1
-PKG_RELEASE:=9
+PKG_RELEASE:=10
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
@@ -95,7 +95,7 @@ define Package/dnsdist
 	  +libsodium \
 	  +libstdcpp \
 	  +lmdb \
-	  +lua \
+	  +liblua \
 	  +tinycdb
   URL:=https://dnsdist.org/
 endef
