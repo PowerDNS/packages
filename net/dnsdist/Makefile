@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsdist
 PKG_VERSION:=1.6.0-rc1
-PKG_RELEASE:=10
+PKG_RELEASE:=12
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
@@ -74,6 +74,12 @@ menu "Configuration"
 		help
 			"Enable RE2 support for dnsdist"
 		default y
+
+	config DNSDIST_DNSTAP
+		bool "DNSTAP support"
+		help
+			"Enable DNSTAP support for dnsdist"
+		default y
 endmenu
 endef
 
@@ -88,10 +94,10 @@ define Package/dnsdist
 	  +DNSDIST_OPENSSL:libopenssl \
 	  +DNSDIST_NET_SNMP:libnetsnmp \
 	  +DNSDIST_RE2:re2 \
+	  +DNSDIST_DNSTAP:libfstrm \
 	  +libatomic \
 	  +libcap \
 	  +libedit \
-	  +libfstrm \
 	  +libsodium \
 	  +libstdcpp \
 	  +lmdb \
@@ -125,10 +131,10 @@ TARGET_CXX+=-std=c++17
 CONFIGURE_ARGS+= \
 	--enable-option-checking=fatal \
 	--enable-dnscrypt \
-	--enable-dnstap \
 	--with-libsodium \
 	--with-pic \
 	--with-lua=lua \
+	$(if $(CONFIG_DNSDIST_DNSTAP),--enable-dnstap=yes,--enable-dnstap=no) \
 	$(if $(CONFIG_DNSDIST_RE2),--with,--without)-re2 \
 	$(if $(CONFIG_DNSDIST_NET_SNMP),--with,--without)-net-snmp \
 	$(if $(CONFIG_DNSDIST_GNUTLS),--with,--without)-gnutls \
