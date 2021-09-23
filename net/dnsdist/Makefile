@@ -56,6 +56,13 @@ menu "Configuration"
 			"Enables DNS over HTTPS Support for dnsdist"
 		default y
 
+	config DNSDIST_DNS_OVER_HTTPS_OUTGOING
+	depends on !DNSDIST_NOSSL
+		bool "Outgoing DNS over HTTPS Support"
+		help
+			"Enables Outgoing DNS over HTTPS Support for dnsdist"
+		default y
+
 	config DNSDIST_DNS_OVER_TLS
 	depends on !DNSDIST_NOSSL
 		bool "DNS over TLS Support"
@@ -96,6 +103,7 @@ define Package/dnsdist
   TITLE:=dnsdist DNS-, DOS- and abuse-aware loadbalancer
   DEPENDS:= \
 	  +DNSDIST_DNS_OVER_HTTPS:libh2o-evloop \
+	  +DNSDIST_DNS_OVER_HTTPS_OUTGOING:libnghttp2 \
 	  +DNSDIST_GNUTLS:libgnutls \
 	  +DNSDIST_OPENSSL:libopenssl \
 	  +DNSDIST_NET_SNMP:libnetsnmp \
@@ -144,7 +152,8 @@ CONFIGURE_ARGS+= \
 	$(if $(CONFIG_DNSDIST_GNUTLS),--with,--without)-gnutls \
 	$(if $(CONFIG_DNSDIST_OPENSSL),--with,--without)-libssl \
 	$(if $(CONFIG_DNSDIST_DNS_OVER_TLS),--enable-dns-over-tls,) \
-	$(if $(CONFIG_DNSDIST_DNS_OVER_HTTPS),--enable-dns-over-https,)
+	$(if $(CONFIG_DNSDIST_DNS_OVER_HTTPS),--enable-dns-over-https,) \
+	$(if $(CONFIG_DNSDIST_DNS_OVER_HTTPS_OUTGOING),--with,--without)-nghttp2
 
 define Package/dnsdist/install
 	$(INSTALL_DIR) $(1)/etc
