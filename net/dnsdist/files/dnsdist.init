@@ -6,15 +6,30 @@ USE_PROCD=1
 start_service() {
 	config_load dnsdist
 	local cfg=general
-	local enabled
+	local user
+	local group
 
-	config_get_bool enabled "$cfg" 'enabled' 1
-
-	[ $enabled -gt 0 ] || return 1
+	config_get user "$cfg" 'user'
+	config_get group "$cfg" 'group'
 
 	procd_open_instance
-	procd_set_param command dnsdist --supervised -C /etc/dnsdist.conf
+	if [ ! -z "$user" -a ! -z "$group" ]; then
+		procd_set_param command dnsdist --supervised -C /etc/dnsdist.conf -u "$user" -g "$group"
+	else
+		procd_set_param command dnsdist --supervised -C /etc/dnsdist.conf
+	fi
 	procd_set_param file /etc/dnsdist.conf
-	procd_set_param respawn
+	procd_set_param respawn 60 0 20
 	procd_close_instance
+}
+
+service_stopped() {
+	# disable DNS interception if needed
+	config_load firewall
+	local intercept
+	config_get intercept 'dns_int' 'name' ''
+	if [ ! -z "$intercept" ]; then
+		uci delete firewall.dns_int
+		/etc/init.d/firewall restart >/dev/null
+	fi
 }
