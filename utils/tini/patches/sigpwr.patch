@@ -1,0 +1,16 @@
+commit 3c0dbdddb85100855d562c23546faf6765241518
+Author: Peter van Dijk <peter.van.dijk@powerdns.com>
+Date:   Fri Jul 8 15:59:13 2022 +0200
+
+    add SIGPWR
+
+--- a/src/tini.c
++++ b/src/tini.c
+@@ -82,6 +82,7 @@ static const struct {
+    { "SIGPROF", SIGPROF },
+    { "SIGWINCH", SIGWINCH },
+    { "SIGSYS", SIGSYS },
++   { "SIGPWR", SIGPWR }
+ };
+ 
+ static unsigned int verbosity = DEFAULT_VERBOSITY;
