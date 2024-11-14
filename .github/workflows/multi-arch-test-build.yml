@@ -5,5 +5,6 @@ on:
 
 jobs:
   build:
-    name: Feeds Package Test Build
-    uses: openwrt/actions-shared-workflows/.github/workflows/multi-arch-test-build.yml@main
+    steps:
+      - name: Feeds Package Test Build
+        uses: openwrt/actions-shared-workflows/.github/workflows/multi-arch-test-build.yml@main
