@@ -5,6 +5,5 @@ on:
 
 jobs:
   build:
-    steps:
-      name: Feeds Package Test Build
-      uses: habbie/actions-shared-workflows/.github/workflows/multi-arch-test-build.yml@apk-artifacts
+    name: Feeds Package Test Build
+    uses: habbie/actions-shared-workflows/.github/workflows/multi-arch-test-build.yml@apk-artifacts
