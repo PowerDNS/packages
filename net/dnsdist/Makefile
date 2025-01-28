@@ -35,7 +35,7 @@ define Package/dnsdist/Default
 	  +libatomic \
 	  +libcap \
 	  +libstdcpp \
-	  +lua5.4
+	  +liblua5.4
   URL:=https://dnsdist.org/
   VARIANT:=$(1)
   PROVIDES:=dnsdist
