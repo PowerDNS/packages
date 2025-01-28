@@ -35,7 +35,7 @@ define Package/dnsdist/Default
 	  +libatomic \
 	  +libcap \
 	  +libstdcpp \
-	  +liblua5.4
+	  +liblua
   URL:=https://dnsdist.org/
   VARIANT:=$(1)
   PROVIDES:=dnsdist
@@ -147,7 +147,7 @@ TARGET_CXXFLAGS+=-Os -fvisibility=hidden -flto -fno-ipa-cp -DNDEBUG \
 
 CONFIGURE_ARGS+= \
 	--with-pic \
-	--with-lua=lua5.4 \
+	--with-lua \
 	--with-libcap \
 	--without-xsk \
 	$(if $(call IsEnabled,DNSDIST_PIE),,--disable-hardening) \
